@@ -76,10 +76,19 @@ void S3CopyObjectAction::setup_steps() {
 void S3CopyObjectAction::get_source_bucket_and_object() {
   s3_log(S3_LOG_DEBUG, request_id, "%s Entry\n", __func__);
   std::string source = request->get_headers_copysource();
-  size_t separator_pos = source.find("/", 1);
-  if (separator_pos != std::string::npos) {
-    source_bucket_name = source.substr(1, separator_pos-1);
-    source_object_name = source.substr(separator_pos + 1);
+  size_t separator_pos;
+  if (source[0] != '/') {
+    separator_pos = source.find("/");
+    if (separator_pos != std::string::npos) {
+      source_bucket_name = source.substr(0, separator_pos);
+      source_object_name = source.substr(separator_pos + 1);
+    }
+  } else {
+    separator_pos = source.find("/", 1);
+    if (separator_pos != std::string::npos) {
+      source_bucket_name = source.substr(1, separator_pos-1);
+      source_object_name = source.substr(separator_pos + 1);
+    }
   }
   s3_log(S3_LOG_DEBUG, "", "%s Exit", __func__);
 }
