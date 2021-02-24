@@ -86,7 +86,7 @@ void S3CopyObjectAction::get_source_bucket_and_object() {
   } else {
     separator_pos = source.find("/", 1);
     if (separator_pos != std::string::npos) {
-      source_bucket_name = source.substr(1, separator_pos-1);
+      source_bucket_name = source.substr(1, separator_pos - 1);
       source_object_name = source.substr(separator_pos + 1);
     }
   }
