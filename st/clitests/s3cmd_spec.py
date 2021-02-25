@@ -205,9 +205,9 @@ S3cmdTest('s3cmd can upload 3k file').upload_test("seagatebucket", "3kfile", 300
 
 S3cmdTest('s3cmd can download 3k file').download_test("seagatebucket", "3kfile").execute_test().command_is_successful().command_created_file("3kfile")
 
-S3cmdTest('s3cmd can copy object 3k file').upload_copy_test("seagatebucket", "3kfile", "3kfile.copy").execute_test().command_is_successful()
+#S3cmdTest('s3cmd can copy object 3k file').upload_copy_test("seagatebucket", "3kfile", "3kfile.copy").execute_test().command_is_successful()
 
-S3cmdTest('s3cmd can move object 3k file').upload_move_test("seagatebucket", "3kfile", "seagatebucket", "3kfile.moved").execute_test().command_is_successful()
+#S3cmdTest('s3cmd can move object 3k file').upload_move_test("seagatebucket", "3kfile", "seagatebucket", "3kfile.moved").execute_test().command_is_successful()
 
 # ************ FILE Overwrite TEST ************
 S3cmdTest('s3cmd can upload 3k file with size 3072').upload_test("seagatebucket", "3kfile", 3072).execute_test().command_is_successful()
