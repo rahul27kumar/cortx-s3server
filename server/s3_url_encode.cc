@@ -76,7 +76,7 @@ std::string url_encode(const char* src) {
 
 void remove_escape_char(const char* str, std::string& destination) {
   char buf[3] = "\0";
-  int code = 0;
+  unsigned int code = 0;
   snprintf(buf, sizeof(buf), "%s", str + 1);
   sscanf(buf, "%x", &code);
   destination.append(1, (char)code);
