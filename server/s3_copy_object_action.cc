@@ -83,24 +83,19 @@ void S3CopyObjectAction::get_source_bucket_and_object() {
     if (separator_pos != std::string::npos) {
       source_bucket_name = source.substr(0, separator_pos);
       source_object_name = source.substr(separator_pos + 1);
-      s3_log(S3_LOG_DEBUG, request_id, "If block, bucket name = %s\n",
-             source_bucket_name.c_str());
-      s3_log(S3_LOG_DEBUG, request_id, "If block, object name = %s\n",
-             source_object_name.c_str());
+      s3_log(S3_LOG_DEBUG, request_id,
+             "If block, bucket name = %s, object name = %s\n",
+             source_bucket_name.c_str(), source_object_name.c_str());
     }
   } else {
     separator_pos = source.find("/", 1);
     if (separator_pos != std::string::npos) {
       source_bucket_name = source.substr(1, separator_pos - 1);
       source_object_name = source.substr(separator_pos + 1);
-      size_t object_name_len = source_object_name.length();
-      char* object_name = new char[object_name_len + 1];
-      strcpy(object_name, source_object_name.c_str());
-      source_object_name = url_encode(object_name);
-      s3_log(S3_LOG_DEBUG, request_id, "Else block, bucket name = %s\n",
-             source_bucket_name.c_str());
-      s3_log(S3_LOG_DEBUG, request_id, "Else block, object name = %s\n",
-             source_object_name.c_str());
+      source_object_name = url_decode(source_object_name.c_str());
+      s3_log(S3_LOG_DEBUG, request_id,
+             "Else block, bucket name = %s, object name = %s\n",
+             source_bucket_name.c_str(), source_object_name.c_str());
     }
   }
   s3_log(S3_LOG_DEBUG, "", "%s Exit", __func__);
